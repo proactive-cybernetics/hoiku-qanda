@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HoikuQanda</title>
+    <title><%= yield(:title) %> | ほいくQ&amp;A</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,5 +11,11 @@
 
   <body>
     <%= yield %>
+    <footer>
+      <ul>
+        <li><%= link_to 'ヘルプ', '/pages/help_index' %></li>
+      </ul>
+      <div class="copyright-notice">Copyright 2019 Hoiku-Q&amp;A All rights reserved.</div>
+    </footer>
   </body>
 </html>
