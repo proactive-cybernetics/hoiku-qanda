@@ -4,18 +4,18 @@
     <title><%= yield(:title) %> | ほいくQ&amp;A</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <!-- Web fonts (Very heavy) -->
+    <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
-    <footer>
-      <ul>
-        <li><%= link_to 'ヘルプ', '/pages/help_index' %></li>
-      </ul>
-      <div class="copyright-notice">Copyright 2019 Hoiku-Q&amp;A All rights reserved.</div>
-    </footer>
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <%= yield %>
+    </div>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
