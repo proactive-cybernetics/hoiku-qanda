@@ -4,4 +4,7 @@ class PagesController < ApplicationController
   
   def help_index
   end
+  
+  def login
+  end
 end

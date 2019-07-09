@@ -1,0 +1,2 @@
+メール : new-nurse-teacher@example.com
+パスワード : password
