@@ -18,6 +18,9 @@ class UsersController < ApplicationController
   end
 
   def home
+    if !logged_in?
+      redirect_to root_path, success: 'ログインしてください'
+    end
   end
   
   private
