@@ -1,0 +1,94 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* universal */
+
+body {
+  padding-top: 80px;
+}
+
+h1 {
+  font-size: 2.5em;
+  line-height: 1;
+  margin-bottom: 30px;
+  text-align: center;
+  color: black;
+}
+
+h2 {
+  font-size: 1.8em;
+  line-height: 1;
+  margin-bottom: 30px;
+  color: #444;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.7em;
+}
+
+.copyright-notice {
+  font-size: small;
+  color: 777;
+  display: inline-block;
+}
+
+/* header */
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  font-family: 'M PLUS Rounded 1c', 'Montserrat';
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+}
+
+/* content */
+
+.btn-black {
+  color: #565656;
+  border: 1px solid #565656;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  background-color: rgba(0,0,0,0.0);
+
+  &:hover {
+    background-color: #E0E0E0;
+  }
+}
+
+/* footer */
+
+footer {
+  margin-bottom: 100px;
+}
+
+footer .container {
+  margin-top: 20px;
+  border-top: 2px solid black;
+  padding-top: 10px;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 20px;
+}
+
+footer a {
+  color: #555;
+}
+
+footer a:hover {
+  color: #222;
+}
