@@ -1,2 +1,25 @@
-<h1>Questions#new</h1>
-<p>Find me in app/views/questions/new.html.erb</p>
+<% provide(:title, "質問の新規作成") %>
+<div class="question-new-wrapper" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1>質問の新規作成</h1>
+        <%= form_for @question do |f| %>
+          <div class="form-group">
+            <%= f.label '質問タイトル' %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label '質問内容' %>
+            <%= f.text_area :content, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label '公開設定' %>
+            <%= f.select :status, [["下書き(公開しない)", "0"], ["公開する", "1"]], class: 'form-control' %>
+          </div>
+          <%= f.submit '投稿', class: 'btn btn-black btn-block' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

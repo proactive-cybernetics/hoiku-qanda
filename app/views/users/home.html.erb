@@ -2,11 +2,11 @@
 <h1><%= @current_user.name %></h1>
 <h2>閲覧</h2>
 <ul>
-  <li><%= link_to '全ての質問一覧', '#' %></li>
+  <li><%= link_to '全ての質問一覧', questions_index_path %></li>
   <li><%= link_to 'あなたの質問一覧', '#' %></li>
 </ul>
 <h2>作成/編集</h2>
 <ul>
-  <li><%= link_to '新しい質問を作成する', '#' %></li>
+  <li><%= link_to '新しい質問を作成する', questions_new_path %></li>
   <li><%= link_to 'プロフィールと設定を変更する', '#' %></li>
 </ul>

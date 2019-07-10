@@ -4,8 +4,8 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <li><%= link_to @current_user.name, '#' %></li>
-          <li><%= link_to "質問一覧", '#' %></li>
+          <li><%= link_to @current_user.name, 'home' %></li>
+          <li><%= link_to "質問一覧", questions_index_path %></li>
           <li><%= link_to "ログアウト", logout_path, method: 'delete' %></li>
         <% else %>
           <li><%= link_to "ログイン", login_path %></li>
@@ -15,4 +15,7 @@
       </ul>
     </nav>
   </div>
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+  <% end %>
 </header>

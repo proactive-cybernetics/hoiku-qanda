@@ -1,2 +1,22 @@
-<h1>Questions#index</h1>
-<p>Find me in app/views/questions/index.html.erb</p>
+<% provide(:title, "質問一覧") %>
+
+<div class="question-index-wrapper">
+  <div class="container">
+    <% @questions.each do |question| %>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="question-index-single">
+            <h2>#<%=question.id %> : <%= question.title %></h3>
+            <h3 class="question-author">
+              <%= question.user.name %>
+            </h3>
+            <p class="question-text">
+              <%= question.content %>
+            </p>
+            <p><%= link_to '詳細', questions_path(question.id) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
