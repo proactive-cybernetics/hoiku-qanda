@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to home_path, success: '質問を作成しました'
     else
-      flash.now[:danger] = '質問を作成できませんでした 必須項目を確認してください'
+      flash.now[:danger] = '質問を作成できませんでした 質問タイトルと内容を確認してください'
       render :new
     end
   end
@@ -19,6 +19,11 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.where('status > 0').order('updated_at DESC')
     @questions.each { |q| q.content = q.content.truncate(200) }
+  end
+  
+  def show
+    @question = Question.find_by(id: params[:id])
+    @answers = Answer.where(question_id: params[:id]).order('updated_at DESC')
   end
   
   private

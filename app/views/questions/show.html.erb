@@ -1,0 +1,27 @@
+<% provide(:title, "#{@question.title}") %>
+<div class="question-show-wrapper" >
+ <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h1><%= @question.title %></h1>
+        <div class="show-question">
+          <p><%= simple_format(h(@question.content)) %></p>
+        </div>
+        <% if @question.status == 1 %>
+          <%# 回答募集中 %>
+          <%= link_to '回答する', new_answer_path(@question.id), class: 'btn btn-block btn-black' %>
+        <% end %>
+        <% if @answers.empty? %>
+          <p>回答はありません。</p>
+        <% else %>
+          <% @answers.each_with_index do |a, i| %>
+            <div class="show-answer">
+              <h3>回答 #<%= @answers.length - i %> 回答者:<%= User.find_by(id: a.user_id).name %></h3>
+              <p><%= simple_format(h(a.content)) %></p>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

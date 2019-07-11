@@ -22,6 +22,14 @@ h2 {
   color: #444;
 }
 
+h2 {
+  font-size: 1.6em;
+  line-height: 1;
+  margin-bottom: 30px;
+  color: #444;
+}
+
+
 p {
   font-size: 1.2em;
   line-height: 1.7em;
@@ -91,6 +99,24 @@ p {
 .form-group {
     margin-bottom: 40px;
 }
+
+.row-question-item {
+    margin-bottom: 40px;
+    border: 1px solid #444444;
+}
+
+.show-question {
+  padding: 40px;
+  margin-bottom: 40px;
+  border: 1px solid black;
+}
+
+.show-answer {
+  padding: 40px;
+  margin-bottom: 40px;
+  border: 1px solid #444444;
+}
+
 
 /* footer */
 
