@@ -21,6 +21,21 @@ class QuestionsController < ApplicationController
     @questions.each { |q| q.content = q.content.truncate(200) }
   end
   
+  def user_questions_index
+    @user = User.find_by(id: params[:id])
+    if @user.nil?
+      redirect_to home_path, danger: '存在しないユーザーです'
+    end
+    
+    if @user.id == @current_user.id || !!@current_user.admin_auth
+      # 同一ユーザの質問、または管理者権限では下書きも表示
+      @questions = Question.where(user_id: params[:id]).order('updated_at DESC')
+    else
+      # 他のユーザの質問も表示できるが、下書きは表示しない
+      @questions = Question.where("user_id = #{params[:id]} AND status > 0").order('updated_at DESC')
+    end
+  end
+  
   def show
     @question = Question.find_by(id: params[:id])
     @answers = Answer.where(question_id: params[:id]).order('updated_at DESC')

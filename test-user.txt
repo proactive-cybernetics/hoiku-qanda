@@ -1,2 +1,7 @@
+ユーザー1 : 新米の保育士さん
 メール : new-nurse-teacher@example.com
 パスワード : password
+
+ユーザー2 : 百戦錬磨の保育士さん
+メール : senior_nurse@example.com
+パスワード : PASSWORD

@@ -1,10 +1,14 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "ほいくQ&A", '/', id: "logo" %>
+    <% if logged_in? %>
+      <%= link_to "ほいくQ&A", home_path, id: "logo" %>
+    <% else %>
+      <%= link_to "ほいくQ&A", '/', id: "logo" %>
+    <% end %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-          <li><%= link_to @current_user.name, 'home' %></li>
+          <li><%= link_to @current_user.name, home_path %></li>
           <li><%= link_to "質問一覧", questions_index_path %></li>
           <li><%= link_to "ログアウト", logout_path, method: 'delete' %></li>
         <% else %>

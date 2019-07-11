@@ -1,10 +1,11 @@
-<% provide(:title, "新規ユーザー登録") %>
+<% provide(:title, "プロフィール編集") %>
 <div class="users-new-wrapper">
   <div class="container">
     <div class="row">
       <div class="col-md-offset-3 col-md-6 users-new-container">
-        <h1 class="text-center text-white">新規ユーザー登録</h1>
+        <h1 class="text-center text-white">プロフィール編集</h1>
         <%= form_for @user do |f| %>
+         <input name="_method" type="hidden" value="patch" />
           <div class="form-group">
             <%= f.label 'お名前', class: 'text-white' %>
             <%= f.text_field :name, class: 'form-control' %>
@@ -14,14 +15,19 @@
             <%= f.text_field :email, class: 'form-control' %>
           </div>
           <div class="form-group">
-            <%= f.label 'パスワード', class: 'text-white' %>
+            <%= f.label '称号を表示する', class: 'text-white' %>
+            <%= f.check_box :title_setting, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label '新しいパスワード', class: 'text-white' %>
+            <p style="font-size: 12px">パスワードを変えない場合は今までのパスワードを入力してください</p>
             <%= f.password_field :password, class: 'form-control' %>
           </div>
           <div class="form-group">
-            <%= f.label 'パスワードをもう一度入力してください', class: 'text-white' %>
+            <%= f.label '新しいパスワードをもう一度入力してください', class: 'text-white' %>
             <%= f.password_field :password_confirmation, class: 'form-control' %>
           </div>
-          <%= f.submit "登録", class: 'btn-block btn-white' %>
+          <%= f.submit "更新", class: 'btn-block btn-white' %>
         <% end %>
       </div>
     </div>

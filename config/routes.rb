@@ -4,12 +4,13 @@ Rails.application.routes.draw do
   
   get 'questions/new'
   get 'questions/index', to: 'questions#index', as: 'questions_index'
+  get 'questions/index/:id', to: 'questions#user_questions_index', as: 'user_questions_index'
   post 'questions', to: 'questions#create'
   get 'questions/:id', to: 'questions#show', as: 'question'
   
   resources 'users'
-  root 'pages#index'
   
+  root 'pages#index'
   get 'pages/index'
   get 'pages/help_index'
   

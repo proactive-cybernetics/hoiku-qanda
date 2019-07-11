@@ -100,6 +100,11 @@ p {
     margin-bottom: 40px;
 }
 
+textarea.form-control {
+  height: 15em;
+  line-height: 1.5em;
+}
+
 .row-question-item {
     margin-bottom: 40px;
     border: 1px solid #444444;

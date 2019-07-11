@@ -1,5 +1,5 @@
-<% provide(:title, "質問一覧") %>
-<h1>質問一覧</h1>
+<% provide(:title, "#{@user.name}の質問一覧") %>
+<h1><%= @user.name %>の質問一覧</h1>
 <div class="question-index-wrapper">
   <div class="container">
     <% @questions.each do |question| %>
