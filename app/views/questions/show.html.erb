@@ -8,9 +8,13 @@
         <div class="show-question">
           <p><%= simple_format(h(@question.content)) %></p>
         </div>
-        <% if @question.status == 1 %>
-          <%# 回答募集中 %>
+        <% if @question.status == 1 and @question.user_id != @current_user.id %>
+          <%# 自分以外の投稿した質問、かつ回答募集中 %>
           <%= link_to '回答する', new_answer_path(@question.id), class: 'btn btn-block btn-black' %>
+        <% elsif @question.user_id == @current_user.id %>
+          <%= link_to '質問を編集する', edit_question_path(@question.id), class: 'btn btn-block btn-black' %>
+        <% else %>
+          <p>回答を締め切りました。</p>
         <% end %>
         <% if @answers.empty? %>
           <p>回答はありません。</p>

@@ -1,0 +1,26 @@
+<% provide(:title, "質問の編集") %>
+<div class="question-new-wrapper" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1>質問の編集</h1>
+        <%= form_for @question do |f| %>
+         <input name="_method" type="hidden" value="patch" />
+          <div class="form-group">
+            <%= f.label '質問タイトル' %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label '質問内容' %>
+            <%= f.text_area :content, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label '質問の状態設定' %>
+            <%= f.select :status, [["下書き(公開しない)", "0"], ["回答募集中", "1"], ["回答締め切り", "2"]], class: 'form-control' %>
+          </div>
+          <%= f.submit '更新', class: 'btn btn-black btn-block' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

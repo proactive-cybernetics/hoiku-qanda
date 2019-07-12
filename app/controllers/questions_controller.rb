@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
   end
   
   def create
-    @question = Question.new(question_params)
+    @question = Question.new(question_params_create)
     @question.user_id = current_user.id
     if @question.save
       redirect_to home_path, success: '質問を作成しました'
@@ -37,12 +37,33 @@ class QuestionsController < ApplicationController
   end
   
   def show
-    @question = Question.find_by(id: params[:id])
+    find_a_question
     @answers = Answer.where(question_id: params[:id]).order('updated_at DESC')
   end
   
+  def edit
+    find_a_question
+  end
+  
+  def update
+    find_a_question
+    if @question.update_attributes(question_params_update)
+      redirect_to home_path, success: '更新が完了しました'
+    else
+      redirect_to edit_question_path(params[:id]), danger: '更新に失敗しました。必須項目を確認してください'
+    end
+  end
+  
   private
-  def question_params
+  def question_params_create
     params.require(:question).permit(:title, :content, :status)
+  end
+  
+  def question_params_update
+    params.require(:question).permit(:title, :content, :status)
+  end
+  
+  def find_a_question
+    @question = Question.find_by(id: params[:id])
   end
 end
