@@ -20,19 +20,32 @@ h2 {
   line-height: 1;
   margin-bottom: 30px;
   color: #444;
+  border-bottom: 1px solid #444;
 }
 
-h2 {
+h3 {
   font-size: 1.6em;
   line-height: 1;
   margin-bottom: 30px;
   color: #444;
+  border-bottom: 1px dashed #444;
 }
 
+li {
+  margin-bottom: 8px;
+}
 
 p {
   font-size: 1.2em;
   line-height: 1.7em;
+}
+
+.img-content {
+  border: 1px solid #777;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
 }
 
 .copyright-notice {
@@ -55,6 +68,10 @@ p {
   font-weight: bold;
 }
 
+.image-logo {
+  position: inline-block;
+  float: left;
+}
 
 .alert {
   margin-bottom: 0px;
@@ -69,7 +86,7 @@ p {
   a {
     color: #fff !important;
   }
-  
+
   .navbar-brand {
     padding: 0px;
     margin-top: 15px;
@@ -77,6 +94,12 @@ p {
   
   img {
     height: 40px;
+  }
+}
+
+ul.nav {
+  li {
+    margin-bottom: 0px;
   }
 }
 
@@ -97,7 +120,7 @@ p {
 }
 
 .form-group {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 textarea.form-control {
@@ -106,8 +129,11 @@ textarea.form-control {
 }
 
 .row-question-item {
-    margin-bottom: 40px;
-    border: 1px solid #444444;
+  margin-bottom: 40px;
+}
+
+.col-question-item {
+  border: 1px solid #444444;
 }
 
 .show-question {
@@ -119,6 +145,11 @@ textarea.form-control {
 .show-answer {
   padding: 40px;
   margin-bottom: 40px;
+  border: 1px solid #444444;
+}
+
+.reply-container {
+  margin: 20px;
   border: 1px solid #444444;
 }
 

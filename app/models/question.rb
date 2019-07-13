@@ -11,7 +11,7 @@ class Question < ApplicationRecord
   validates :status, inclusion: {in: [DRAFT, CALLING_ANSWERS, FINALIZED] }
 
   belongs_to :user
-  has_many :answer
+  has_many :answers
   has_many :answer_users, through: :answers, source: 'user'
   has_many :answer_answer_replies, through: :answers, source: 'answer_reply'
 end

@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <h1><%= @question.title %></h1>
-        <h2>質問者: <%= User.find_by(id: @question.user_id).name %></h2>
+        <h2>質問者: <%= @question.user.name %></h2>
         <div class="show-question">
           <p><%= simple_format(h(@question.content)) %></p>
         </div>
@@ -16,13 +16,22 @@
         <% else %>
           <p>回答を締め切りました。</p>
         <% end %>
-        <% if @answers.empty? %>
+        <% if @question.answers.empty? %>
           <p>回答はありません。</p>
         <% else %>
-          <% @answers.each_with_index do |a, i| %>
+          <% @question.answers.reverse.each_with_index do |a, i| %>
             <div class="show-answer">
-              <h3>回答 #<%= @answers.length - i %> 回答者:<%= User.find_by(id: a.user_id).name %></h3>
+              <h3>回答 #<%= @answers.length - i %> 回答者:<%= a.user.name %></h3>
               <p><%= simple_format(h(a.content)) %></p>
+              <% if !a.answer_reply.nil? %>
+                <div class="reply-container">
+                  <%# 回答への返信があれば表示する %>
+                  <p><strong>返信</strong></p>
+                  <%= simple_format(h(a.answer_reply.content)) %>
+                </div>
+              <% elsif @question.user_id == @current_user.id %>
+                <%= link_to '返信する', new_reply_path %>
+              <% end %>
             </div>
           <% end %>
         <% end %>

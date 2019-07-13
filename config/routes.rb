@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'answer_replies/new/:id', to: 'answer_replies#new', as: 'new_reply'
+  post 'answer_replies', to: 'answer_replies#create'
+  
   get 'answers/new/:id', to: 'answers#new', as: 'new_answer'
   post 'answers', to: 'answers#create'
   

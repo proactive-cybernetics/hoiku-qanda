@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
   before_action :require_login
   
+  PER = 5
+  
   def new
     @question = Question.new
   end
@@ -17,7 +19,7 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @questions = Question.where('status > 0').order('updated_at DESC')
+    @questions = Question.where('status > 0').order('updated_at DESC').includes(:user).page(params[:page]).per(PER)
     @questions.each { |q| q.content = q.content.truncate(200) }
   end
   
@@ -29,16 +31,16 @@ class QuestionsController < ApplicationController
     
     if @user.id == @current_user.id || !!@current_user.admin_auth
       # 同一ユーザの質問、または管理者権限では下書きも表示
-      @questions = Question.where(user_id: params[:id]).order('updated_at DESC')
+      @questions = Question.where(user_id: params[:id]).order('updated_at DESC').includes(:user).page(params[:page]).per(PER)
     else
       # 他のユーザの質問も表示できるが、下書きは表示しない
-      @questions = Question.where("user_id = #{params[:id]} AND status > 0").order('updated_at DESC')
+      @questions = Question.where("user_id = #{params[:id]} AND status > 0").order('updated_at DESC').page(params[:page]).includes(:user).per(PER)
     end
   end
   
   def show
     find_a_question
-    @answers = Answer.where(question_id: params[:id]).order('updated_at DESC')
+    @answers = Answer.where(question_id: params[:id]).order('updated_at DESC').includes(:user)
   end
   
   def edit

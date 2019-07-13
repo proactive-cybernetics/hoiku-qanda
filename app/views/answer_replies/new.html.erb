@@ -1,0 +1,22 @@
+<% provide(:title, "回答に返信する") %>
+<div class="question-new-wrapper" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h2><%= @answer.user.name %></h2>
+        <div class="show-question">
+          <p><%= simple_format(h(@answer.content)) %></p>
+        </div>
+        <%= form_for @reply do |f| %>
+          <div class="form-group">
+            <%= f.label '回答内容' %>
+            <%= f.text_area :content, class: 'form-control' %>
+            <%= f.hidden_field :question_id, value: @answer.question_id %>
+            <%= f.hidden_field :answer_id, value: params[:id] %>
+          </div>
+          <%= f.submit '投稿', class: 'btn btn-black btn-block' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
