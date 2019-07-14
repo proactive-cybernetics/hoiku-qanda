@@ -19,6 +19,10 @@
             <%= f.check_box :title_setting, class: 'form-control' %>
           </div>
           <div class="form-group">
+            <%= f.label '自己紹介', class: 'text-white' %>
+            <%= f.text_area :profile, class: 'form-control' %>
+          </div>
+          <div class="form-group">
             <%= f.label '新しいパスワード', class: 'text-white' %>
             <p style="font-size: 12px">パスワードを変えない場合は今までのパスワードを入力してください</p>
             <%= f.password_field :password, class: 'form-control' %>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:home]
+  before_action :require_login, only: [:home, :show]
   before_action :require_same_user, only: [:edit, :update]
   
   def new
@@ -33,13 +33,17 @@ class UsersController < ApplicationController
   def home
   end
   
+  def show
+    @user = User.find_by(id: params[:id])
+  end
+  
   private
   def user_params_create
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
   
   def user_params_update
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :title_setting)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :title_setting, :profile)
   end
   
   def require_same_user

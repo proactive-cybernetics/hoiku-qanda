@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <h1><%= @question.title %></h1>
-        <h2>質問者: <%= @question.user.name %></h2>
+        <h2>質問者: <%= link_to @question.user.name, user_path(@question.user_id) %></h2>
         <div class="show-question">
           <p><%= simple_format(h(@question.content)) %></p>
         </div>
@@ -21,7 +21,7 @@
         <% else %>
           <% @question.answers.reverse.each_with_index do |a, i| %>
             <div class="show-answer">
-              <h3>回答 #<%= @answers.length - i %> 回答者:<%= a.user.name %></h3>
+              <h3>回答 #<%= @answers.length - i %> 回答者:<%= link_to a.user.name, user_path(a.user_id) %></h3>
               <p><%= simple_format(h(a.content)) %></p>
               <% if !a.answer_reply.nil? %>
                 <div class="reply-container">
