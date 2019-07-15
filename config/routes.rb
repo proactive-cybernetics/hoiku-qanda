@@ -7,11 +7,15 @@ Rails.application.routes.draw do
   
   get 'questions/new'
   get 'questions/index', to: 'questions#index', as: 'questions_index'
-  get 'questions/index/:id', to: 'questions#user_questions_index', as: 'user_questions_index'
+  get 'questions/index/:id', to: 'questions#user_questions_index',\
+    as: 'user_questions_index'
   post 'questions', to: 'questions#create'
   get 'questions/:id', to: 'questions#show', as: 'question'
   get 'questions/edit/:id', to: 'questions#edit', as: 'edit_question'
   patch 'questions/:id', to: 'questions#update'
+  get 'questions/confirm_delete_question/:id', to: 'questions#confirm_deletion',\
+    as: 'confirm_delete_question'
+  delete 'questions/destroy/:id', to: 'questions#destroy', as: 'destroy_question'
   
   get 'users/resign', to: 'users#resign', as: 'resign_user'
   resources 'users'
