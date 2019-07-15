@@ -1,0 +1,21 @@
+<% provide(:title, "退会") %>
+<h2>退会について</h2>
+<p>退会するとログインは行えなくなります。
+　退会した場合はあなたのユーザー名、ユーザープロフィールおよび
+　プロフィール画像が他のユーザーに表示されなくなります。
+  退会しても今までの質問、回答、返信内容は削除されません。
+  また、後でこれまでと同じメールアドレスでユーザー登録することはできません。</p>
+<p>以上の事柄を確認の上、以下の欄にパスワードを入力して「退会する」をクリックしてください。</p>
+
+<%= form_for @user do |f| %>
+  <input name="_method" type="hidden" value="delete" />
+  <div class="form-group">
+    <%= f.label 'パスワード', class: 'text-white' %>
+    <%= f.password_field :password, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label 'パスワードをもう一度入力してください', class: 'text-white' %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+  <%= f.submit "退会", class: 'btn-block btn-white' %>
+<% end %>

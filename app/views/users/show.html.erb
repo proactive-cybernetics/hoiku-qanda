@@ -1,7 +1,6 @@
-<% provide(:title, "ホーム") %>
+<% provide(:title, "ユーザー情報 : #{@user.name}") %>
 <h1><%= @user.name %></h1>
 <% if @user.id == @current_user.id %>
   <%= link_to '編集', edit_user_path %>
 <% end %>
 <p><%= @user.profile %></p>
-

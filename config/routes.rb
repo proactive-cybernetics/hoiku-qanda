@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'questions/edit/:id', to: 'questions#edit', as: 'edit_question'
   patch 'questions/:id', to: 'questions#update'
   
+  get 'users/resign', to: 'users#resign', as: 'resign_user'
   resources 'users'
   
   root 'pages#index'

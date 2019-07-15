@@ -12,9 +12,11 @@ class AnswersController < ApplicationController
     @answer.user_id = current_user.id
     @answer.already_read = 0
     if @answer.save
-      redirect_to question_path(params[:answer][:question_id]), success: '回答を投稿しました'
+      redirect_to question_path(params[:answer][:question_id]),\
+        success: '回答を投稿しました'
     else
-      redirect_to "/answers/new/#{params[:answer][:question_id]}", danger: '回答が作成できませんでした 内容が入力されているか確認してください'
+      redirect_to "/answers/new/#{params[:answer][:question_id]}",\
+        danger: '回答が作成できませんでした 内容が入力されているか確認してください'
     end
   end
   

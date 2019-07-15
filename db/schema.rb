@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_09_132040) do
+ActiveRecord::Schema.define(version: 2019_07_15_024138) do
 
   create_table "answer_replies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "answer_id"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_07_09_132040) do
     t.integer "already_read"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "deletion_flg", default: 0
   end
 
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -28,6 +29,7 @@ ActiveRecord::Schema.define(version: 2019_07_09_132040) do
     t.integer "already_read"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "deletion_flg", default: 0
   end
 
   create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -39,6 +41,7 @@ ActiveRecord::Schema.define(version: 2019_07_09_132040) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "deletion_flg", default: 0
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -52,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_07_09_132040) do
     t.integer "admin_auth"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "deletion_flg", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

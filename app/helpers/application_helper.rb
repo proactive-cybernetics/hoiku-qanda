@@ -13,9 +13,12 @@ module ApplicationHelper
     end
   end
   
+  # ログインしているユーザーのIDと、パラメータのユーザーIDが
+  # 同一であるか、管理者であればそのまま通す。
+  # 別のユーザーID、かつ管理者でなければユーザーホームページにリダイレクト
   def require_same_user_id(id)
     require_login
-    if id.to_i != session[:user_id]
+    if id.to_i != @current_user.id and @current_user.admin_auth == 0
       redirect_to home_path, danger: '他のユーザーのプロフィール編集はできません'
     end
   end
