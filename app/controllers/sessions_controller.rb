@@ -3,7 +3,8 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: session_param_email[:email])
+    # 退会したユーザーはログインできない
+    user = User.find_by(email: session_param_email[:email], deletion_flg: 0)
     if user && user.authenticate(session_param_password[:password])
       log_in user
       redirect_to home_path, success: 'ログインに成功しました'
