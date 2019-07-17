@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   get 'answer_replies/new/:id', to: 'answer_replies#new', as: 'new_reply'
   post 'answer_replies', to: 'answer_replies#create'
+  delete 'answer_replies/:id', to: 'answer_replies#destroy', as: 'destroy_answer_reply'
   
   get 'answers/new/:id', to: 'answers#new', as: 'new_answer'
   post 'answers', to: 'answers#create'
+  get 'answers/edit/:id', to: 'answers#edit', as: 'edit_answer'
+  patch 'answers', to: 'answers#update', as: 'answer'
+  delete 'answers/:id', to: 'answers#destroy', as: 'destroy_answer'
   
   get 'questions/new'
   get 'questions/index', to: 'questions#index', as: 'questions_index'

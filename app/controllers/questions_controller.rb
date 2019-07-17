@@ -22,8 +22,14 @@ class QuestionsController < ApplicationController
 
   # 全てのユーザーの質問一覧ページを表示
   def index
-    @questions = Question.where('status > 0').order('updated_at DESC')\
-    .includes(:user).page(params[:page]).per(PER)
+    if !!@current_user.admin_auth
+      # 管理者権限がある場合は下書きも表示
+      @questions = Question.all.order('updated_at DESC')\
+        .includes(:user).page(params[:page]).per(PER)
+    else
+      @questions = Question.where('status > 0').order('updated_at DESC')\
+        .includes(:user).page(params[:page]).per(PER)
+    end
     @questions.each { |q| q.content = q.content.truncate(200) }
   end
   

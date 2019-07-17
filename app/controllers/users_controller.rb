@@ -8,6 +8,8 @@ class UsersController < ApplicationController
   # または管理者のみ行える
   before_action :require_same_user, only: [:edit, :update, :destroy]
   
+  PER = 5
+  
   # ユーザー新規登録画面を表示
   def new
     @user = User.new
@@ -64,14 +66,29 @@ class UsersController < ApplicationController
       admin_auth: 0,
       deletion_flg: 1
     }
-    user_deletion[:password] = params[:user][:password]
-    user_deletion[:password_confirmation] = params[:user][:password_confirmation]
-    if @current_user.update_attributes(user_deletion)
-      log_out
-      redirect_to root_path, success: '退会処理が完了しました'
+    if !!@current_user.admin_auth
+      # 管理人による強制退会ではパスワード入力は不要
+      @user = User.find_by(id: params[:id])
+      if @user.update_columns(user_deletion)
+        redirect_to home_path, success: 'ユーザーを強制退会させました'
+      else
+        redirect_to user_path(@user.id), danger: 'ユーザーの強制退会に失敗しました'
+      end
     else
-      redirect_to resign_user_path, danger: '退会処理が行えませんでした'
+      user_deletion[:password] = params[:user][:password]
+      user_deletion[:password_confirmation] = params[:user][:password_confirmation]
+      if @current_user.update_attributes(user_deletion)
+        log_out
+        redirect_to root_path, success: '退会処理が完了しました'
+      else
+        redirect_to resign_user_path, danger: '退会処理が行えませんでした'
+      end
     end
+  end
+  
+  # ユーザー一覧を表示
+  def index
+    @users = User.all.where(deletion_flg: 0).page(params[:page]).per(PER)
   end
 
   private
