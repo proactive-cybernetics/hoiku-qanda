@@ -29,7 +29,7 @@ class AnswerRepliesController < ApplicationController
     @reply.deletion_flg = 1
     
     if @reply.answer.question.user_id == @current_user.id ||\
-      !!@current_user.admin_auth
+      @current_user.admin_auth != 0
       if @reply.save
         redirect_to question_path(@reply.answer.question_id,
           success: '返信を削除しました')

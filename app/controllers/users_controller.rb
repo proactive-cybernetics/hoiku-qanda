@@ -35,10 +35,21 @@ class UsersController < ApplicationController
   
   # ユーザー情報を更新
   def update
-    if @current_user.update_attributes(user_params_update)
-      redirect_to home_path, success: '更新が完了しました'
+    @user = User.find_by(id: params[:id])
+
+    if @current_user.admin_auth != 0
+      # 管理人による更新の場合はパスワード入力不要
+      if @user.update_columns(user_params_update_admin.to_h)
+        redirect_to user_path, success: '更新が完了しました'
+      else
+        redirect_to edit_user_path, danger: '更新に失敗しました。'
+      end
     else
-      redirect_to edit_user_path, danger: '更新に失敗しました。必須項目を確認してください'
+      if @user.update_attributes(user_params_update)
+        redirect_to home_path, success: '更新が完了しました'
+      else
+        redirect_to edit_user_path, danger: '更新に失敗しました。必須項目を確認してください'
+      end
     end
   end
 
@@ -66,7 +77,7 @@ class UsersController < ApplicationController
       admin_auth: 0,
       deletion_flg: 1
     }
-    if !!@current_user.admin_auth
+    if @current_user.admin_auth != 0
       # 管理人による強制退会ではパスワード入力は不要
       @user = User.find_by(id: params[:id])
       if @user.update_columns(user_deletion)
@@ -100,6 +111,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :title_setting, :profile)
   end
   
+  def user_params_update_admin
+    params.require(:user).permit(:name, :email, :title_setting, :profile)
+  end
+
   def require_same_user
     require_same_user_id(params[:id])
   end

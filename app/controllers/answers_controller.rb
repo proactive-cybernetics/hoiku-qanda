@@ -33,7 +33,7 @@ class AnswersController < ApplicationController
     @answer.content = params[:answer][:content]
     @answer.already_read = 1
     
-    if @answer.user_id == @current_user.id || !!@current_user.admin_auth
+    if @answer.user_id == @current_user.id || @current_user.admin_auth != 0
       if @answer.save
         redirect_to question_path(@answer.question_id,\
           success: '回答を修正しました')
@@ -54,7 +54,7 @@ class AnswersController < ApplicationController
     @answer.already_read = 1
     @answer.deletion_flg = 1
     
-    if @answer.user_id == @current_user.id || !!@current_user.admin_auth
+    if @answer.user_id == @current_user.id || @current_user.admin_auth != 0
       if @answer.save
         redirect_to question_path(@answer.question_id,\
           success: '回答を削除しました')

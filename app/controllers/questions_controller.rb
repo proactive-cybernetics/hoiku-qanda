@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
 
   # 全てのユーザーの質問一覧ページを表示
   def index
-    if !!@current_user.admin_auth
+    if @current_user.admin_auth != 0
       # 管理者権限がある場合は下書きも表示
       @questions = Question.all.order('updated_at DESC')\
         .includes(:user).page(params[:page]).per(PER)
@@ -43,7 +43,7 @@ class QuestionsController < ApplicationController
       redirect_to home_path, danger: '存在しないユーザーです'
     end
     
-    if @user.id == @current_user.id || !!@current_user.admin_auth
+    if @user.id == @current_user.id || @current_user.admin_auth != 0
       # 同一ユーザの質問、または管理者権限では下書きも表示
       @questions = Question.where(user_id: params[:id], deletion_flg: 0)\
         .order('updated_at DESC').includes(:user).page(params[:page]).per(PER)
@@ -70,7 +70,7 @@ class QuestionsController < ApplicationController
   # データベースに質問の更新を指示
   def update
     find_a_question
-    if @question.user_id == @current_user.id || !!@current_user.admin_auth
+    if @question.user_id == @current_user.id || @current_user.admin_auth != 0
       if @question.update_attributes(question_params_update)
         redirect_to home_path, success: '更新が完了しました'
       else
@@ -97,7 +97,7 @@ class QuestionsController < ApplicationController
     @question.best_answer = nil
     @question.deletion_flg = 1
 
-    if @question.user_id == @current_user.id || !!@current_user.admin_auth
+    if @question.user_id == @current_user.id || @current_user.admin_auth != 0
       if @question.save
         redirect_to home_path, success: '質問を削除しました'
       else
