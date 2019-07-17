@@ -1,0 +1,26 @@
+<% provide(:title, "回答の修正") %>
+<div class="question-new-wrapper" >
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1><%= @question.title %></h1>
+        <div class="show-question">
+          <p><%= simple_format(h(@question.content)) %></p>
+        </div>
+        <h2>回答の修正</h2>
+        <%= link_to '回答の削除はこちら', destroy_answer_path(@answer.id),\
+              method: :delete %>
+        <%= form_for @answer do |f| %>
+          <div class="form-group">
+            <%= f.label '回答内容' %>
+            <%= f.text_area :content, class: 'form-control' %>
+            <%= f.hidden_field :question_id, value: params[:id] %>
+            <%= f.hidden_field :id, value: @answer.id %>
+            <%= f.hidden_field :method, value: :patch %>
+          </div>
+          <%= f.submit '投稿', class: 'btn btn-black btn-block' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

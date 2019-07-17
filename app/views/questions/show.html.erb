@@ -8,7 +8,10 @@
         <div class="show-question">
           <p><%= simple_format(h(@question.content)) %></p>
         </div>
-        <% if @question.status == 1 and @question.user_id != @current_user.id %>
+        <% if @current_user.admin_auth != 0 %>
+          <%# 管理者用表示 %>
+          <%= link_to '質問を編集する', edit_question_path(@question.id), class: 'btn btn-block btn-black' %>
+        <% elsif @question.status == 1 and @question.user_id != @current_user.id %>
           <%# 自分以外の投稿した質問、かつ回答募集中 %>
           <%= link_to '回答する', new_answer_path(@question.id), class: 'btn btn-block btn-black' %>
         <% elsif @question.user_id == @current_user.id %>
@@ -28,9 +31,17 @@
                   <%# 回答への返信があれば表示する %>
                   <p><strong>返信</strong></p>
                   <%= simple_format(h(a.answer_reply.content)) %>
+                  <% if @question.user_id == @current_user.id ||\
+                          @current_user.admin_auth != 0 %>
+                    <%= link_to '返信を削除', destroy_answer_reply_path(a.answer_reply.id), method: :delete %>
+                  <% end %>
                 </div>
               <% elsif @question.user_id == @current_user.id %>
-                <%= link_to '返信する', new_reply_path %>
+                <%= link_to '返信する', new_reply_path(a.id) %>
+              <% end %>
+              <% if a.user_id == @current_user.id ||\
+                      @current_user.admin_auth != 0 %>
+                <%= link_to '回答を編集', edit_answer_path(a.id) %>
               <% end %>
             </div>
           <% end %>

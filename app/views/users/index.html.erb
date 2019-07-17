@@ -1,0 +1,23 @@
+<% provide(:title, "ユーザー一覧") %>
+<h1>ユーザー一覧</h1>
+<div class="question-index-wrapper">
+  <div class="container">
+    <% @users.each do |user| %>
+      <div class="row row-question-item">
+        <div class="col-md-8 col-md-offset-2 col-question-item">
+          <div class="question-index-single">
+            <h2>#<%=user.id %> : <%= user.name %></h3>
+            <h3 class="question-author">
+              <%= user.name %>
+            </h3>
+            <p class="question-text">
+              <%= user.profile %>
+            </p>
+            <p><%= link_to '詳細', user_path(user.id) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= paginate @users %>
+</div>

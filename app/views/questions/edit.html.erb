@@ -4,6 +4,7 @@
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <h1>質問の編集</h1>
+        <%= link_to '質問の削除はこちら', confirm_delete_question_path(@question.id) %>
         <%= form_for @question do |f| %>
          <input name="_method" type="hidden" value="patch" />
           <div class="form-group">

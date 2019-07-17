@@ -5,3 +5,7 @@
 ユーザー2 : 百戦錬磨の保育士さん
 メール : senior_nurse@example.com
 パスワード : PASSWORD
+
+ユーザー3 : 管理者さん
+メール : admin@example.com
+パスワード : passphrase
