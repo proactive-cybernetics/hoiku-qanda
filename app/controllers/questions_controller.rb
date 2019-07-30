@@ -23,11 +23,11 @@ class QuestionsController < ApplicationController
   # 全てのユーザーの質問一覧ページを表示
   def index
     if @current_user.admin_auth != 0
-      # 管理者権限がある場合は下書きも表示
+      # 管理者権限がある場合は下書きと削除済みの質問も表示
       @questions = Question.all.order('updated_at DESC')\
         .includes(:user).page(params[:page]).per(PER)
     else
-      @questions = Question.where('status > 0').order('updated_at DESC')\
+      @questions = Question.where('status > 0 AND deletion_flg = 0').order('updated_at DESC')\
         .includes(:user).page(params[:page]).per(PER)
     end
     @questions.each { |q| q.content = q.content.truncate(200) }
@@ -58,8 +58,8 @@ class QuestionsController < ApplicationController
   # 質問の詳細ページを表示
   def show
     find_a_question
-    @answers = Answer.where(question_id: params[:id]).order('updated_at DESC')\
-      .includes(:user)
+    @answers = Answer.where(question_id: params[:id], deletion_flg: 0)\
+      .order('updated_at DESC').includes(:user)
   end
   
   # 質問の編集ページを表示
