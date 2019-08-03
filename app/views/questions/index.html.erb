@@ -2,21 +2,27 @@
 <h1>質問一覧</h1>
 <div class="question-index-wrapper">
   <div class="container">
-    <% @questions.each do |question| %>
-      <div class="row row-question-item">
-        <div class="col-md-8 col-md-offset-2 col-question-item">
-          <div class="question-index-single">
-            <h2>#<%=question.id %> : <%= question.title %></h3>
-            <h3 class="question-author">
-              <%= question.user.name %>
-            </h3>
-            <p class="question-text">
-              <%= question.content %>
-            </p>
-            <p><%= link_to '詳細', question_path(question.id) %></p>
+    <% if @questions.empty? %>
+      <h2>公開されている質問はありません</h2>
+    <% else %>
+      <% @questions.each do |question| %>
+        <div class="row row-question-item">
+          <div class="col-md-8 col-md-offset-2 col-question-item">
+            <div class="question-index-single">
+              <h2>#<%=question.id %> : <%= question.title %></h3>
+              <h3 class="question-author">
+                <%= question.user.name %>
+              </h3>
+              <p class="question-text">
+                <%= question.content %>
+              </p>
+              <% if question.deletion_flg == 0 %>
+                <p><%= link_to '詳細', question_path(question.id) %></p>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
   <%= paginate @questions %>

@@ -26,9 +26,9 @@
             <div class="show-answer">
               <h3>回答 #<%= @answers.length - i %> 回答者:<%= link_to a.user.name, user_path(a.user_id) %></h3>
               <p><%= simple_format(h(a.content)) %></p>
-              <% if !a.answer_reply.nil? %>
+              <% if !a.answer_reply.nil? and a.answer_reply.deletion_flg == 0 %>
+                <%# 回答への返信があれば表示する %>
                 <div class="reply-container">
-                  <%# 回答への返信があれば表示する %>
                   <p><strong>返信</strong></p>
                   <%= simple_format(h(a.answer_reply.content)) %>
                   <% if @question.user_id == @current_user.id ||\

@@ -31,11 +31,19 @@ class UsersController < ApplicationController
   # ユーザー情報編集ページを表示
   def edit
     @user = User.find_by(id: params[:id])
+    if @user.nil?
+      redirect_to users_path, \
+        danger: '指定されたユーザーが存在しません'
+    end
   end
   
   # ユーザー情報を更新
   def update
     @user = User.find_by(id: params[:id])
+    if @user.nil?
+      redirect_to users_path, \
+        danger: '指定されたユーザーが存在しません'
+    end
 
     if @current_user.admin_auth != 0
       # 管理人による更新の場合はパスワード入力不要
@@ -60,6 +68,10 @@ class UsersController < ApplicationController
   # ユーザープロフィールを表示
   def show
     @user = User.find_by(id: params[:id])
+    if @user.nil?
+      redirect_to users_path, \
+        danger: '指定されたユーザーが存在しません'
+    end
   end
   
   # 退会ページを表示
