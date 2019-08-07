@@ -1,9 +1,11 @@
 <% provide(:title, "質問の削除確認 : #{@question.title}") %>
-<p>以下の質問を削除します。よろしいですか?</p>
-<p>質問タイトル : <%= @question.title %></p>
-<p>質問者: <%= link_to @question.user.name, user_path(@question.user_id) %></p>
-<p>質問内容:</p>
-<div class="show-question">
-  <p><%= simple_format(h(@question.content)) %></p>
+<div class="container container-contents">
+  <p>以下の質問を削除します。よろしいですか?</p>
+  <p>質問タイトル : <%= @question.title %></p>
+  <p>質問者: <%= link_to @question.user.name, user_path(@question.user_id) %></p>
+  <p>質問内容:</p>
+  <div class="show-question">
+    <p><%= simple_format(h(@question.content)) %></p>
+  </div>
+  <%= link_to '削除する', destroy_question_path(@question.id), method: :delete %>
 </div>
-<%= link_to '削除する', destroy_question_path(@question.id), method: :delete %>

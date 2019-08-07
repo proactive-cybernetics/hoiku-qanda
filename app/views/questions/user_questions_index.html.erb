@@ -1,13 +1,13 @@
 <% provide(:title, "#{@user.name}の質問一覧") %>
-<h1><%= @user.name %>の質問一覧</h1>
 <div class="question-index-wrapper">
-  <div class="container">
+  <div class="container container-contents">
+    <h1><%= @user.name %>の質問一覧</h1>
     <% if @questions.empty? %>
       <h2><%= @user.name %>の公開している質問はありません。%></h2>
     <% else %>
       <% @questions.each do |question| %>
         <div class="row row-question-item">
-          <div class="col-md-6 col-md-offset-3">
+          <div class="col-md-6 col-md-offset-3 col-question-item">
             <div class="question-index-single">
               <h2>#<%=question.id %> : <%= question.title %></h3>
               <h3 class="question-author">
