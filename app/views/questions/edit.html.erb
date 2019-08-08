@@ -16,6 +16,16 @@
             <%= f.text_area :content, class: 'form-control' %>
           </div>
           <div class="form-group">
+            <%= f.label 'ベストアンサーを選択' %>
+            <% if @answers.nil? %>
+              <p>ベストアンサーの候補がありません。</p>
+            <% else %>
+              <% @answers.each_with_index do |a, i| %>
+                <p><%= f.radio_button :best_answer, a.id %>回答 <%= @answers.length - i %> : <%= a.user.name %></p>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="form-group">
             <%= f.label '質問の状態設定' %>
             <%= f.select :status, [["下書き(公開しない)", "0"], ["回答募集中", "1"], ["回答締め切り", "2"]], class: 'form-control' %>
           </div>
