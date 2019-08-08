@@ -1,6 +1,6 @@
 <% provide(:title, "#{@question.title}") %>
 <div class="question-show-wrapper" >
- <div class="container">
+ <div class="container container-contents">
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <h1><%= @question.title %></h1>
@@ -19,10 +19,34 @@
         <% else %>
           <p>回答を締め切りました。</p>
         <% end %>
-        <% if @question.answers.empty? %>
+        <% if @answers.nil? %>
           <p>回答はありません。</p>
         <% else %>
-          <% @question.answers.reverse.each_with_index do |a, i| %>
+          <% if !(@best_answer.nil?) %>
+            <%# ベストアンサーの指定がある場合 %>
+            <div class="show-answer">
+              <h3><span class="text-success">&#10004;ベストアンサー</span> 回答者:<%= link_to @best_answer.user.name, user_path(@best_answer.user_id) %></h3>
+              <p><%= simple_format(h(@best_answer.content)) %></p>
+              <% if !@best_answer.answer_reply.nil? and @best_answer.answer_reply.deletion_flg == 0 %>
+                <%# 回答への返信があれば表示する %>
+                <div class="reply-container">
+                  <p><strong>返信</strong></p>
+                  <%= simple_format(h(@best_answer.answer_reply.content)) %>
+                  <% if @question.user_id == @current_user.id ||\
+                          @current_user.admin_auth != 0 %>
+                    <%= link_to '返信を削除', destroy_answer_reply_path(@best_answer.answer_reply.id), method: :delete %>
+                  <% end %>
+                </div>
+              <% elsif @question.user_id == @current_user.id %>
+                <%= link_to '返信する', new_reply_path(@best_answer.id) %>
+              <% end %>
+              <% if @best_answer.user_id == @current_user.id ||\
+                      @current_user.admin_auth != 0 %>
+                <%= link_to '回答を編集', edit_answer_path(@best_answer.id) %>
+              <% end %>
+            </div>
+          <% end %>
+          <% @answers.each_with_index do |a, i| %>
             <div class="show-answer">
               <h3>回答 #<%= @answers.length - i %> 回答者:<%= link_to a.user.name, user_path(a.user_id) %></h3>
               <p><%= simple_format(h(a.content)) %></p>

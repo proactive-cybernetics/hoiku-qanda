@@ -63,8 +63,18 @@ class QuestionsController < ApplicationController
         danger: '指定された質問がありません'
     end
     
-    @answers = Answer.where(question_id: params[:id], deletion_flg: 0)\
-      .order('updated_at DESC').includes(:user)
+    if @question.best_answer.nil?
+      @best_answer = nil
+      @answers = Answer.where(question_id: params[:id], deletion_flg: 0)\
+        .order('updated_at DESC').includes(:user)
+    else
+      # ベストアンサーが指定されている場合
+      @best_answer = Answer.where(id: @question.best_answer).includes(:user).first
+    
+      @answers = Answer.where(question_id: params[:id], deletion_flg: 0)\
+        .where.not(id: @question.best_answer).order('updated_at DESC').includes(:user)
+      # binding.pry
+    end
   end
   
   # 質問の編集ページを表示
@@ -74,6 +84,9 @@ class QuestionsController < ApplicationController
       redirect_to questions_index_path, \
         danger: '指定された質問がありません'
     end
+    
+    @answers = Answer.where(question_id: params[:id], deletion_flg: 0)\
+      .order('updated_at DESC').includes(:user)
   end
   
   # データベースに質問の更新を指示
@@ -132,7 +145,7 @@ class QuestionsController < ApplicationController
   
   # 質問の更新時に使用するStrong Parameter
   def question_params_update
-    params.require(:question).permit(:title, :content, :status)
+    params.require(:question).permit(:title, :content, :status, :best_answer)
   end
   
   # params[:id]に対応する質問レコードをデータベースから取得

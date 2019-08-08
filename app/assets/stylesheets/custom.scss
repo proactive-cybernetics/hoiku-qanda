@@ -4,7 +4,7 @@
 /* universal */
 
 body {
-  padding-top: 80px;
+  padding-top: 40px;
 }
 
 h1 {
@@ -71,6 +71,7 @@ p {
 .image-logo {
   position: inline-block;
   float: left;
+  margin-top: 5px;
 }
 
 .alert {
@@ -80,16 +81,14 @@ p {
   z-index: 10000;
 }
 
-.navbar-transparent {
-  margin-bottom: 0px;
-  background-color: rgba(0,0,0,0.5);
+.navbar-inverse {
+  margin-bottom: 0px !important;
   a {
     color: #fff !important;
   }
 
   .navbar-brand {
     padding: 0px;
-    margin-top: 15px;
   }
   
   img {
@@ -105,6 +104,34 @@ ul.nav {
 
 /* content */
 
+.container-overall-background {
+  position: block;
+  background-image: asset-url('forest-park.jpg');
+  background-attachment: fixed;
+  min-height: 720px;
+  height: auto !important;
+  height: 720px;
+}
+
+.container-contents-toppage {
+  margin-top: 20px;
+  min-height: 720px;
+  height: auto !important;
+  height: 720px;
+}
+
+.container-contents {
+  padding-top: 40px;
+  padding-bottom: 60px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  background-color: rgba(255, 255, 238, 0.9);
+  min-height: 720px;
+  height: auto !important;
+  height: 720px;
+}
+
+
 .btn-black {
   color: #565656;
   border: 1px solid #565656;
@@ -112,10 +139,10 @@ ul.nav {
   padding-bottom: 15px;
   margin-bottom: 15px;
   font-size: 20px;
-  background-color: rgba(0,0,0,0.0);
+  background-color: rgba(255,255,255,0.5);
 
   &:hover {
-    background-color: #E0E0E0;
+    background-color: rgba(221, 221, 221, 0.5);
   }
 }
 
@@ -163,8 +190,6 @@ footer {
 
 footer .container {
   margin-top: 20px;
-  border-top: 2px solid black;
-  padding-top: 10px;
 }
 
 footer ul {
@@ -184,4 +209,3 @@ footer a {
 footer a:hover {
   color: #222;
 }
-

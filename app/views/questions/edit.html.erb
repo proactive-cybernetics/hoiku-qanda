@@ -1,6 +1,6 @@
 <% provide(:title, "質問の編集") %>
 <div class="question-new-wrapper" >
-  <div class="container">
+  <div class="container container-contents">
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <h1>質問の編集</h1>
@@ -14,6 +14,16 @@
           <div class="form-group">
             <%= f.label '質問内容' %>
             <%= f.text_area :content, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label 'ベストアンサーを選択' %>
+            <% if @answers.nil? %>
+              <p>ベストアンサーの候補がありません。</p>
+            <% else %>
+              <% @answers.each_with_index do |a, i| %>
+                <p><%= f.radio_button :best_answer, a.id %>回答 <%= @answers.length - i %> : <%= a.user.name %></p>
+              <% end %>
+            <% end %>
           </div>
           <div class="form-group">
             <%= f.label '質問の状態設定' %>
