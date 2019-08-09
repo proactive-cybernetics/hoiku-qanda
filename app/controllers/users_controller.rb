@@ -63,6 +63,16 @@ class UsersController < ApplicationController
 
   # ユーザーホームページを表示
   def home
+    # 通知する内容 (未読の回答がある質問をQuestionモデルから取得)
+    my_questions = Question.all.where(user_id: @current_user)
+    @notify_questions = []
+    
+    my_questions.each do |q|
+      q_answers_notify = Answer.all.where(question_id: q.id).where(already_read: 0)
+      if !q_answers_notify.nil? and !q_answers_notify.empty?
+        @notify_questions.push(q)
+      end
+    end
   end
   
   # ユーザープロフィールを表示

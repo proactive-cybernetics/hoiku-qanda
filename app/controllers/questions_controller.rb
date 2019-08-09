@@ -24,11 +24,11 @@ class QuestionsController < ApplicationController
   def index
     if @current_user.admin_auth != 0
       # 管理者権限がある場合は下書きと削除済みの質問も表示
-      @questions = Question.all.order('updated_at DESC')\
+      @questions = Question.all.order('created_at DESC')\
         .includes(:user).page(params[:page]).per(PER)
     else
-      @questions = Question.where('status > 0 AND deletion_flg = 0').order('updated_at DESC')\
-        .includes(:user).page(params[:page]).per(PER)
+      @questions = Question.where('status > 0 AND deletion_flg = 0')\
+        .order('created_at DESC').includes(:user).page(params[:page]).per(PER)
     end
     @questions.each { |q| q.content = q.content.truncate(200) }
   end
@@ -46,12 +46,12 @@ class QuestionsController < ApplicationController
     if @user.id == @current_user.id || @current_user.admin_auth != 0
       # 同一ユーザの質問、または管理者権限では下書きも表示
       @questions = Question.where(user_id: params[:id], deletion_flg: 0)\
-        .order('updated_at DESC').includes(:user).page(params[:page]).per(PER)
+        .order('created_at DESC').includes(:user).page(params[:page]).per(PER)
     else
       # 他のユーザの質問も表示できるが、下書きは表示しない
       @questions = Question.where(\
         "user_id = #{params[:id]} AND status > 0 AND deletion_flg = 0")\
-        .order('updated_at DESC').page(params[:page]).includes(:user).per(PER)
+        .order('created_at DESC').page(params[:page]).includes(:user).per(PER)
     end
   end
   
@@ -63,6 +63,15 @@ class QuestionsController < ApplicationController
         danger: '指定された質問がありません'
     end
     
+    # 投稿者のアカウントで閲覧した場合は、すべての回答の既読フラグを更新
+    if @current_user.id == @question.user_id
+      @answers = Answer.where(question_id: params[:id])
+      @answers.each do |a|
+        a.update_attribute(:already_read, 1)
+      end
+    end
+    
+    # 表示する情報関連
     if @question.best_answer.nil?
       @best_answer = nil
       @answers = Answer.where(question_id: params[:id], deletion_flg: 0)\

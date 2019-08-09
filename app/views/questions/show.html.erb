@@ -25,7 +25,9 @@
           <% if !(@best_answer.nil?) %>
             <%# ベストアンサーの指定がある場合 %>
             <div class="show-answer">
-              <h3><span class="text-success">&#10004;ベストアンサー</span> 回答者:<%= link_to @best_answer.user.name, user_path(@best_answer.user_id) %></h3>
+              <h3><span class="text-success">&#10004;ベストアンサー</span>
+                  回答者:<%= link_to @best_answer.user.name, user_path(@best_answer.user_id) %></h3>
+              <p>回答日時 : <%= @best_answer.created_at %></p>
               <p><%= simple_format(h(@best_answer.content)) %></p>
               <% if !@best_answer.answer_reply.nil? and @best_answer.answer_reply.deletion_flg == 0 %>
                 <%# 回答への返信があれば表示する %>
@@ -48,7 +50,8 @@
           <% end %>
           <% @answers.each_with_index do |a, i| %>
             <div class="show-answer">
-              <h3>回答 #<%= @answers.length - i %> 回答者:<%= link_to a.user.name, user_path(a.user_id) %></h3>
+              <h3>回答者:<%= link_to a.user.name, user_path(a.user_id) %></h3>
+              <p>回答日時 : <%= @best_answer.created_at %></p>
               <p><%= simple_format(h(a.content)) %></p>
               <% if !a.answer_reply.nil? and a.answer_reply.deletion_flg == 0 %>
                 <%# 回答への返信があれば表示する %>
