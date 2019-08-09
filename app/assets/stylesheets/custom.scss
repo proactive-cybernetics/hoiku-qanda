@@ -161,24 +161,28 @@ textarea.form-control {
 
 .col-question-item {
   border: 1px solid #444444;
+  border-radius: 10px;
 }
 
 .show-question {
-  padding: 40px;
+  padding: 20px;
   margin-bottom: 40px;
-  border: 1px solid black;
+//  border: 1px solid black;
+//  border-radius: 10px;
 }
 
 .show-answer {
   padding: 40px;
   margin-bottom: 40px;
   border: 1px solid #444444;
+  border-radius: 10px;
 }
 
 .reply-container {
   margin: 20px;
   padding: 20px;
   border: 1px solid #444444;
+  border-radius: 10px;
 }
 
 

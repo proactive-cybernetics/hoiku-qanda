@@ -21,7 +21,7 @@
               <p>ベストアンサーの候補がありません。</p>
             <% else %>
               <% @answers.each_with_index do |a, i| %>
-                <p><%= f.radio_button :best_answer, a.id %>回答 <%= @answers.length - i %> : <%= a.user.name %></p>
+                <p><%= f.radio_button :best_answer, a.id %> <%= a.user.name %>による回答 (<%= a.created_at %>)</p>
               <% end %>
             <% end %>
           </div>

@@ -1,6 +1,14 @@
 <% provide(:title, "ホーム") %>
 <div class="container container-contents">
   <h1><%= @current_user.name %></h1>
+  <% if !@notify_questions.empty? %>
+    <p class="text-success">お知らせ : 新着の回答があります!</p>
+    <ul>
+      <% @notify_questions.each do |q| %>
+        <li><%= link_to q.title, question_path(q.id) %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <h2>閲覧</h2>
   <ul>
     <li><%= link_to '全ての質問一覧', questions_index_path %></li>
