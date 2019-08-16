@@ -115,7 +115,8 @@ ul.nav {
 
 .container-overall-background {
   position: block;
-  background-image: asset-url('forest-park.jpg');
+  background-image: asset-url('plane-cloud.jpg');
+  background-size: cover;
   background-attachment: fixed;
   min-height: 720px;
   height: auto !important;
