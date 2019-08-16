@@ -22,7 +22,20 @@ class QuestionsController < ApplicationController
 
   # 全てのユーザーの質問一覧ページを表示
   def index
-    if @current_user.admin_auth != 0
+    if params[:search].present?
+      questions_source = Question.where('status > 0 AND deletion_flg = 0')\
+        .order('created_at DESC').includes(:user).to_a
+      
+      # キーワード(スペースでAND指定)を含むものだけを抜き出す
+      # 参照 : https://qiita.com/nao58/items/bf5d017a06fc33da9e3b
+      keywords = params[:search].split(/[[:blank:]]+/)
+      questions_source.select! do |s|
+        keywords.all? { |k| s.title.include?(k) or s.content.include?(k) }
+      end
+      
+      @questions = Kaminari.paginate_array(questions_source).page(params[:page]).per(PER)
+      
+    elsif @current_user.admin_auth != 0
       # 管理者権限がある場合は下書きと削除済みの質問も表示
       @questions = Question.all.order('created_at DESC')\
         .includes(:user).page(params[:page]).per(PER)
@@ -30,7 +43,6 @@ class QuestionsController < ApplicationController
       @questions = Question.where('status > 0 AND deletion_flg = 0')\
         .order('created_at DESC').includes(:user).page(params[:page]).per(PER)
     end
-    @questions.each { |q| q.content = q.content.truncate(200) }
   end
   
   # 特定ユーザーの作成した質問一覧ページを表示  

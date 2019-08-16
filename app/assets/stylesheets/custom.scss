@@ -81,6 +81,15 @@ p {
   z-index: 10000;
 }
 
+.nav-search {
+  margin-top: 8px;
+  font-size: small;
+  
+  input, button {
+    display:inline-block;
+  }
+}
+
 .navbar-inverse {
   margin-bottom: 0px !important;
   a {
