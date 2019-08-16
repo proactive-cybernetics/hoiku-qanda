@@ -1,8 +1,28 @@
 <% provide(:title, "質問一覧") %>
 <div class="question-index-wrapper container container-contents">
   <h1>質問一覧</h1>
+      
+  <% if params[:search].present? %>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <p class="text-info">検索結果 : <%= params[:search] %></p>
+    </div>
+  </div>
+  <% end %>
   <% if @questions.empty? %>
-    <h2>公開されている質問はありません</h2>
+    <% if params[:search].present? %>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h2>検索条件に合う質問が見つかりませんでした</h2>
+        </div>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h2>公開されている質問はありません</h2>
+        </div>
+      </div>
+    <% end %>
   <% else %>
     <% @questions.each do |question| %>
       <div class="row row-question-item">
