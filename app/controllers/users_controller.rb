@@ -19,12 +19,18 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params_create)
     set_user_defaults!  # @userのカラムにデフォルト値を追加
-    
-    if @user.save
-      redirect_to root_path, success: '登録が完了しました'
-    else
-      flash.now[:danger] = "登録に失敗しました"
+    # emailが被らないか確認
+    duplicate_user = User.find_by(email: params[:user][:email])
+    if duplicate_user.present?
+      flash.now[:danger] = "すでに使用されているメールアドレスです"
       render :new
+    else
+      if @user.save
+        redirect_to root_path, success: '登録が完了しました'
+      else
+        flash.now[:danger] = "登録に失敗しました"
+        render :new
+      end
     end
   end
   
