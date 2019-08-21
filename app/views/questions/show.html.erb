@@ -51,7 +51,7 @@
           <% @answers.each_with_index do |a, i| %>
             <div class="show-answer">
               <h3>回答者:<%= link_to a.user.name, user_path(a.user_id) %></h3>
-              <p>回答日時 : <%= @best_answer.created_at %></p>
+              <p>回答日時 : <%= a.created_at %></p>
               <p><%= simple_format(h(a.content)) %></p>
               <% if !a.answer_reply.nil? and a.answer_reply.deletion_flg == 0 %>
                 <%# 回答への返信があれば表示する %>
