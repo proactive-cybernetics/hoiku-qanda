@@ -105,22 +105,43 @@ class UsersController < ApplicationController
       admin_auth: 0,
       deletion_flg: 1
     }
-    if @current_user.admin_auth != 0
-      # 管理人による強制退会ではパスワード入力は不要
-      @user = User.find_by(id: params[:id])
-      if @user.update_columns(user_deletion)
-        redirect_to home_path, success: 'ユーザーを強制退会させました'
+    begin
+      binding.pry
+      if @current_user.admin_auth != 0
+        # 管理人による強制退会ではパスワード入力は不要
+        @user = User.find_by(id: params[:id])
+        user_deletion[:password] = "abcabc123"
+        user_deletion[:password_confirmation] = "abcabc123"
+        if @user.update_columns(user_deletion)
+          if (@user.id == @current_user.id)
+            # 管理人が退会する場合
+            session.delete(:user_id)
+            redirect_to root_path, success: '退会処理が完了しました'
+          else
+            redirect_to home_path, success: 'ユーザーを強制退会させました'
+          end
+        else
+          redirect_to user_path(@user.id), danger: 'ユーザーの強制退会に失敗しました'
+        end
       else
-        redirect_to user_path(@user.id), danger: 'ユーザーの強制退会に失敗しました'
+        if params[:user][:password].empty? or params[:user][:password_confirmation].empty?
+          redirect_to resign_user_path, danger: '必須項目が未記入です'
+          return
+        end
+        user_deletion[:password] = params[:user][:password]
+        user_deletion[:password_confirmation] = params[:user][:password_confirmation]
+        if @current_user.update_attributes(user_deletion)
+          session.delete(:user_id)
+          redirect_to root_path, success: '退会処理が完了しました'
+        else
+          redirect_to resign_user_path, danger: '退会処理が行えませんでした'
+        end
       end
-    else
-      user_deletion[:password] = params[:user][:password]
-      user_deletion[:password_confirmation] = params[:user][:password_confirmation]
-      if @current_user.update_attributes(user_deletion)
-        log_out
-        redirect_to root_path, success: '退会処理が完了しました'
+    rescue => e
+      if Rails.env.development?
+        redirect_to resign_user_path, danger: '内部エラーが発生しました : ' + e.class
       else
-        redirect_to resign_user_path, danger: '退会処理が行えませんでした'
+        redirect_to resign_user_path, danger: '処理が失敗しました。入力内容を再度確認してください。'
       end
     end
   end
