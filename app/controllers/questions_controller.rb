@@ -47,9 +47,7 @@ class QuestionsController < ApplicationController
   
   # 特定ユーザーの作成した質問一覧ページを表示  
   def user_questions_index
-    # params[:id]のSQLインジェクション対策
-    params[:id] = params[:id].to_i
-    
+
     @user = User.find_by(id: params[:id])
     if @user.nil?
       redirect_to home_path, danger: '存在しないユーザーです'
@@ -62,7 +60,7 @@ class QuestionsController < ApplicationController
     else
       # 他のユーザの質問も表示できるが、下書きは表示しない
       @questions = Question.where(\
-        "user_id = #{params[:id]} AND status > 0 AND deletion_flg = 0")\
+        "user_id = #{params[:id].to_i} AND status > 0 AND deletion_flg = 0")\
         .order('created_at DESC').page(params[:page]).includes(:user).per(PER)
     end
   end

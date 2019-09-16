@@ -3,7 +3,7 @@
   <div class="container container-contents">
     <h1><%= @user.name %>の質問一覧</h1>
     <% if @questions.empty? %>
-      <h2><%= @user.name %>の公開している質問はありません。%></h2>
+      <h2><%= @user.name %>の公開している質問はありません。</h2>
     <% else %>
       <% @questions.each do |question| %>
         <div class="row row-question-item">

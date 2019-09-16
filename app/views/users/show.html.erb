@@ -4,7 +4,8 @@
   <% if @user.id == @current_user.id || @current_user.admin_auth != 0 %>
     <%= link_to '編集', edit_user_path %>
     <% if @current_user.admin_auth != 0 %>
-      <%= link_to '強制退会', user_path, method: :delete %>
+      <%# 退会機能は無効にする %>
+      <%# link_to '強制退会', user_path, method: :delete %>
     <% end %>
   <% end %>
   <p><%= @user.profile %></p>
