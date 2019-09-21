@@ -21,8 +21,9 @@ Rails.application.routes.draw do
     as: 'confirm_delete_question'
   delete 'questions/destroy/:id', to: 'questions#destroy', as: 'destroy_question'
   
-  get 'users/resign', to: 'users#resign', as: 'resign_user'
-  resources 'users'
+  # 退会機能は無効にする (CSRFトークンのエラーがなくならないので暫定)
+#  get 'users/resign', to: 'users#resign', as: 'resign_user'
+  resources 'users', only: [:index, :new, :create, :show, :edit, :update]
   
   root 'pages#index'
   get 'pages/index'
