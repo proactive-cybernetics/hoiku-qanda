@@ -32,7 +32,7 @@ PostgreSQLが使用されます。PostgreSQL以外のRDBと
 
 $ heroku run bundle update
 
-デプロイ後に1回、rails db:migration コマンドを実行してください。
+デプロイ後に1回、rails db:migration および rails db:seedコマンドを実行してください。
 
 * How to run the test suite
 

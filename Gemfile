@@ -7,8 +7,8 @@ ruby '2.6.3'
 gem 'rails', '~> 5.2.3'
 ## Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
-# Use mysql2 as the database for Active Record
-gem 'mysql2', '>= 0.4.4', '< 0.6.0', group: :development
+# Use pg as the database for Active Record
+gem 'pg'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
@@ -75,10 +75,6 @@ group :test do
   gem 'minitest-reporters',       '1.1.14'
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
-end
-
-group :production do
-  gem 'pg'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
