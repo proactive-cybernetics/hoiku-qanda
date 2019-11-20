@@ -143,5 +143,3 @@ AnswerReply.create(answer_id: 3,
                   already_read: 0, \
                   content:
 "罰金の条件や金額については保護者会で検討します。ありがとうございました。")
-
-
