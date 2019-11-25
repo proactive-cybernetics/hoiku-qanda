@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get 'pages/index'
   get 'pages/help_index'
   
-  get 'home', to: 'users#home'
+  get 'home', to: 'users#home', as: 'home'
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'

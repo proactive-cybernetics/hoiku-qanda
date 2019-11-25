@@ -10,10 +10,7 @@
             <%= f.label 'お名前', class: 'text-white' %>
             <%= f.text_field :name, class: 'form-control' %>
           </div>
-          <div class="form-group">
-            <%= f.label 'メールアドレス', class: 'text-white' %>
-            <%= f.text_field :email, class: 'form-control' %>
-          </div>
+          <%= f.hidden_field :email, value: @user.email %>
           <div class="form-group">
             <%= f.label '称号を表示する', class: 'text-white' %>
             <%= f.check_box :title_setting, class: 'form-control' %>

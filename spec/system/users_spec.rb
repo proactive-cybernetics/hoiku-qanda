@@ -16,6 +16,47 @@ describe 'ユーザー情報表示機能', type: :system do
   end
   
   describe 'ユーザーホーム表示機能' do
+    let (:login_user) {user_a}
+
+    it "has valid title, name of login user, and links for new question and edit user profile" do
+      visit home_path
+      expect(page).to have_title("ホーム")
+      expect(page).to have_content(login_user.name)
+      expect(page).to have_link('新しい質問を作成する', href: questions_new_path)
+      expect(page).to have_link('プロフィールと設定を変更する', href: edit_user_path(login_user.id))
+    end
+  end
+
+  describe 'ユーザー情報編集機能' do
+    let (:login_user) {user_a}
+
+    it 'accepts edit with valid name, email, title setting, profile, and password' do
+      visit edit_user_path(login_user.id)
+      expect(page).to have_title('プロフィール編集')
+      expect(page).to have_content(login_user.name)
+
+      fill_in('user[name]', with: 'ゆーざーA')
+      check('user[title_setting]')
+      fill_in('user[profile]', with: 'ユーザーAのプロフィールです。')
+      fill_in('user[password]', with: login_user.password)
+      fill_in('user[password_confirmation]', with: login_user.password)
+      click_button('更新')
+
+      expect(page).to have_content('更新が完了しました')
+      expect(page).to have_content('ゆーざーA')
+    end
+
+    it 'declines edit with defferent password confirmation' do
+      visit edit_user_path(login_user.id)
+      fill_in('user[name]', with: 'ゆーざーA')
+      check('user[title_setting]')
+      fill_in('user[profile]', with: 'ユーザーAのプロフィールです。')
+      fill_in('user[password]', with: login_user.password)
+      fill_in('user[password_confirmation]', with: '')
+      click_button('更新')
+
+      expect(page).to have_content('更新に失敗しました')
+    end
   end
   
   describe 'ユーザー一覧表示機能' do

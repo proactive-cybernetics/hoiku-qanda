@@ -35,6 +35,33 @@ describe '質問管理機能', type: :system do
     # 作成済みの質問の名称が画面上に表示されていることを確認
     it { expect(page).to have_content '最初の質問' }
   end
+
+  describe '質問投稿機能' do
+    let (:login_user) { user_a }
+    
+    it 'accepts post with valid title, content, and publish setting' do
+      expect do
+        visit questions_new_path
+        fill_in 'question[title]', with: "タイトル"
+        fill_in 'question[content]', with: "質問内容"
+        select '下書き(公開しない)', from: 'question[status]' 
+        click_button '投稿'
+      end.to change(Question, :count).by(1)
+    end
+
+    it 'declines post with blank title' do
+      expect do
+        visit questions_new_path
+        fill_in 'question[title]', with: ""
+        fill_in 'question[content]', with: "質問内容"
+        select '下書き(公開しない)', from: 'question[status]' 
+        click_button '投稿'
+      end.to change(Question, :count).by(0)
+
+      # エラーメッセージが表示されること
+      expect(page).to have_content '質問を作成できませんでした 質問タイトルと内容を確認してください'
+    end
+  end
     
   describe '一覧表示機能' do
     before do
