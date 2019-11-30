@@ -1,5 +1,18 @@
 require 'rails_helper'
 
+describe '新規ユーザー登録機能', type: :system do
+  it 'is possible to create new user' do
+    visit new_user_path
+    expect do
+      fill_in 'user[name]', with: '新規ユーザー'
+      fill_in 'user[email]', with: 'foo@bar.com'
+      fill_in 'user[password]', with: 'password'
+      fill_in 'user[password_confirmation]', with: 'password'
+      click_button('登録')
+    end.to change(User, :count).by(1)
+  end
+end
+
 describe 'ユーザー情報表示機能', type: :system do
   let! (:user_a) \
     { FactoryBot.create(:user, name: 'ユーザーA', email: 'a@example.com',\
@@ -87,6 +100,20 @@ describe 'ユーザー情報表示機能', type: :system do
       
       expect(page).to have_content 'ユーザーB'
       expect(page).to have_content 'ユーザービーでございます'
+    end
+  end
+
+  describe 'ユーザー退会機能' do
+    let (:login_user) {user_a}
+
+    it 'is possible to unsubscribe hoiku-qanda' do
+      visit edit_user_path(user_a)
+      click_link('退会する')
+      fill_in 'user[password]', with: login_user.password
+      fill_in 'user[password_confirmation]', with: login_user.password
+      click_button('退会')
+
+      expect(page).to have_content '退会処理が完了しました'
     end
   end
 end
