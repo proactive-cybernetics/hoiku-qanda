@@ -30,7 +30,36 @@ describe '回答投稿機能' do
         fill_in 'answer[content]', with: "回答内容です"
         click_button '投稿'
       end.to change(Answer, :count).by(1)
+    end
+  end                       
+                        
+  describe '回答編集機能' do
 
+    let (:login_user) {user_a}
+
+    let! (:the_answer) { FactoryBot.create(:answer, content: '最初の回答',\
+    user: user_a, question: question_1) }
+
+    it 'accepts answer edit with valid content' do
+      visit edit_answer_path(the_answer.id)
+
+      fill_in 'answer[content]', with: "最初の回答内容です"
+      click_button '修正'
+      expect(page).to have_content '最初の回答内容です'
+    end
+  end
+
+  describe '回答削除機能' do
+
+    let (:login_user) {user_a}
+
+    let! (:the_answer) { FactoryBot.create(:answer, content: '最初の回答',\
+    user: user_a, question: question_1) }
+
+    it 'accepts answer deletion' do
+      visit edit_answer_path(the_answer.id)
+      click_link('回答の削除はこちら')
+      expect(page).to have_no_content('最初の回答')
     end
   end
 end
