@@ -89,14 +89,14 @@ describe 'ユーザー情報表示機能', type: :system do
     let (:login_user) {user_a}
     
     it 'displays informations of user_a' do
-      visit users_path(user_a)
+      visit user_path(user_a)
       
       expect(page).to have_content 'ユーザーA'
       expect(page).to have_content 'ユーザーえーでーす'
     end
     
     it 'displays informations of user_b' do
-      visit users_path(user_b)
+      visit user_path(user_b)
       
       expect(page).to have_content 'ユーザーB'
       expect(page).to have_content 'ユーザービーでございます'

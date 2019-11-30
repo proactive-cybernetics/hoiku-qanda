@@ -16,7 +16,7 @@ class AnswerRepliesController < ApplicationController
       redirect_to question_path(params[:answer_reply][:question_id]),\
         success: '返信を投稿しました'
     else
-      redirect_to "/answer_reply/new/#{params[:answer_reply][:question_id]}",\
+      redirect_to "/answer_replies/new/#{params[:answer_reply][:question_id]}",\
         danger: '返信が作成できませんでした 内容が入力されているか確認してください'
     end
   end
