@@ -91,7 +91,7 @@ Question.create(title: "おやつの量について", \
 
 #6
 Question.create(title: "お迎えに遅れてくる親御さんの対応", \
-                user_id: 1, \
+                user_id: 2, \
                 content: \
 "保育所から帰る子どもたちのお迎えに来る
 親御さんたちですが、いつもおよそ4〜5人が
@@ -124,7 +124,7 @@ Answer.create(question_id: 2, \
 
 #3
 Answer.create(question_id: 6, \
-              user_id: 2, \
+              user_id: 3, \
               already_read: 0, \
               content: \
 "保護者会で合意の上、罰金制にしてはいかがでしょうか")
@@ -143,5 +143,3 @@ AnswerReply.create(answer_id: 3,
                   already_read: 0, \
                   content:
 "罰金の条件や金額については保護者会で検討します。ありがとうございました。")
-
-

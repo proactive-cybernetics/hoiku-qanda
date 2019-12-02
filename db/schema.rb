@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2019_07_15_024138) do
 
-  create_table "answer_replies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "answer_replies", force: :cascade do |t|
     t.integer "answer_id"
     t.text "content"
     t.integer "already_read"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_07_15_024138) do
     t.integer "deletion_flg", default: 0
   end
 
-  create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "answers", force: :cascade do |t|
     t.integer "question_id"
     t.integer "user_id"
     t.text "content"
@@ -32,7 +35,7 @@ ActiveRecord::Schema.define(version: 2019_07_15_024138) do
     t.integer "deletion_flg", default: 0
   end
 
-  create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "questions", force: :cascade do |t|
     t.string "title"
     t.integer "user_id"
     t.text "content"
@@ -44,7 +47,7 @@ ActiveRecord::Schema.define(version: 2019_07_15_024138) do
     t.integer "deletion_flg", default: 0
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
