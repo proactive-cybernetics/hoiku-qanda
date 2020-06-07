@@ -85,7 +85,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "jquery-rails"
-gem 'kaminari', '~> 0.17.0'
+gem 'kaminari', '~> 1.2.1'
 gem "bcrypt"
 gem "carrierwave"
 gem "aws-sdk-s3", require: false
